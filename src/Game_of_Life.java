@@ -9,13 +9,14 @@ public class Game_of_Life {
 
     public static void main(String[] args) {
         
-        int dydis = 5;
+        int dydis = 20;
+        int iterLength = 50;
         char[][] laukas = new char[dydis][dydis];
         
             // Random sugeneruotas laukas
             for(int y = 0; y<laukas.length; y++) {
                 for(int x = 0; x<laukas.length; x++) {
-                    if(Math.random() < 0.50) {
+                    if(Math.random() < 0.22) {
                         laukas[y][x] = 'X';
                     } else {
                         laukas[y][x] = '.';
@@ -33,7 +34,15 @@ public class Game_of_Life {
             }
             
             // Iteraciju kiekis ( Gyvenimo ciklai )
-            for(int LifeTime = 1; LifeTime<=50; LifeTime++) {
+            // Sukuriam nauja 3 mati masyva, kad saugoti visas iteracijas
+            
+            char[][][] istorija = new char[iterLength][dydis][dydis];
+            
+            for(int LifeTime = 0; LifeTime < iterLength; LifeTime++) {
+                
+                // Priskiriam iteracija i istorija
+                istorija[LifeTime] = laukas;
+                
                 char[][] iteracija = new char[dydis][dydis];
                 
                 // Ieskome aplikui esanciu kaimynu
@@ -65,23 +74,32 @@ public class Game_of_Life {
                         }
                     }
                 }
+                    // Gauname uzpildyta nauja iteracija
                 
-                boolean sutampa = false;
-                for(int y = 0; y<laukas.length; y++) {
-                    for(int x = 0; x<laukas.length; x++) {
-                       if(laukas[y][x] != iteracija[y][x]) {
-                           sutampa = true;
-                       } 
+                    // Tikriname ar iteracija kartojasi
+                    
+                    int i = LifeTime;
+                    for(; i >= 0; i--) {
+                        boolean sutampa = true;
+                        for(int y = 0; sutampa && y<laukas.length; y++) {
+                            for(int x = 0; sutampa && x<laukas.length; x++) {
+                               if(istorija[i][y][x] != iteracija[y][x]) {
+                                   sutampa = false;
+                               } 
+                            }
+                        }
+                        if(sutampa) {
+                            break;
+                        }
                     }
-                }
+                    if( i >= 0) {
+                        System.out.println("- - -[ Iteracija pasikartoko: " + i + " ]- - -");
+                        break;
+                       
+                    }
+        
                 
-                if(sutampa == false) {
-                    System.out.println("[ Sutampa ]");
-                    break;
-                }
-                
-                
-                System.out.println("[ " + LifeTime + " ]");
+                System.out.println("- - - - - - -[ " + (LifeTime + 1) + " ] - - - - - - - - - -");
                 for(int y = 0; y<iteracija.length; y++) {
                     for(int x = 0; x<iteracija.length; x++) {
                         System.out.print(iteracija[y][x]);
