@@ -9,7 +9,7 @@ public class Game_of_Life {
 
     public static void main(String[] args) {
         
-        int dydis = 10;
+        int dydis = 3;
         char[][] laukas = new char[dydis][dydis];
         
             // Random sugeneruotas laukas
@@ -41,32 +41,16 @@ public class Game_of_Life {
                         int kaimynai = 0;
                         
                         if ( y != 0) {
-                            if( x != 0 && laukas[y - 1][x - 1] == 'X') {
-                                kaimynai++;
-                            }
-                            if( laukas[y - 1][x] == 'X') {
-                                kaimynai++;
-                            }
-                            if( x < dydis - 1 && laukas[y][x + 1] == 'X' ) {
-                                kaimynai++;
-                            }
+                            kaimynai += ( x != 0 && laukas[y - 1][x - 1] == 'X') ? 1 : 0;
+                            kaimynai += ( laukas[y - 1][x] == 'X') ? 1 : 0;
+                            kaimynai += ( x < dydis - 1 && laukas[y][x + 1] == 'X' ) ? 1 : 0;
                         }
-                        if( x != 0 && laukas[y][x - 1] == 'X' ) {
-                            kaimynai++;
-                        }
-                        if( x < dydis - 1 && laukas[y][x + 1] == 'X') {
-                            kaimynai++;
-                        }
+                        kaimynai += ( x != 0 && laukas[y][x - 1] == 'X' ) ? 1 : 0;
+                        kaimynai += ( x < dydis - 1 && laukas[y][x + 1] == 'X') ? 1 : 0;
                         if( y < dydis - 1) {
-                            if( x != 0 && laukas[y + 1][x - 1] == 'X') {
-                                kaimynai++;
-                            }
-                            if( laukas[y + 1][x] == 'X') {
-                               kaimynai++; 
-                            }
-                            if( x < dydis - 1 && laukas[y + 1][x + 1] == 'X') {
-                                kaimynai++;
-                            }
+                            kaimynai += ( x != 0 && laukas[y + 1][x - 1] == 'X') ? 1 : 0;
+                            kaimynai += ( laukas[y + 1][x] == 'X') ? 1 : 0;
+                            kaimynai += ( x < dydis - 1 && laukas[y + 1][x + 1] == 'X') ? 1 : 0;
                         } 
                         // Gavome kaimynu kieki lauke
                         
