@@ -9,7 +9,7 @@ public class Game_of_Life {
 
     public static void main(String[] args) {
         
-        int dydis = 3;
+        int dydis = 5;
         char[][] laukas = new char[dydis][dydis];
         
             // Random sugeneruotas laukas
@@ -24,6 +24,7 @@ public class Game_of_Life {
             }
             
             // Pirmas gautas laukas
+            System.out.println("[ Random ]");
             for(int y = 0; y<laukas.length; y++) {
                 for(int x = 0; x<laukas.length; x++) {
                     System.out.print(laukas[y][x]);
@@ -32,7 +33,7 @@ public class Game_of_Life {
             }
             
             // Iteraciju kiekis ( Gyvenimo ciklai )
-            for(int LifeTime = 0; LifeTime<50; LifeTime++) {
+            for(int LifeTime = 1; LifeTime<=50; LifeTime++) {
                 char[][] iteracija = new char[dydis][dydis];
                 
                 // Ieskome aplikui esanciu kaimynu
@@ -64,7 +65,23 @@ public class Game_of_Life {
                         }
                     }
                 }
-                System.out.println("__________");
+                
+                boolean sutampa = false;
+                for(int y = 0; y<laukas.length; y++) {
+                    for(int x = 0; x<laukas.length; x++) {
+                       if(laukas[y][x] != iteracija[y][x]) {
+                           sutampa = true;
+                       } 
+                    }
+                }
+                
+                if(sutampa == false) {
+                    System.out.println("[ Sutampa ]");
+                    break;
+                }
+                
+                
+                System.out.println("[ " + LifeTime + " ]");
                 for(int y = 0; y<iteracija.length; y++) {
                     for(int x = 0; x<iteracija.length; x++) {
                         System.out.print(iteracija[y][x]);
