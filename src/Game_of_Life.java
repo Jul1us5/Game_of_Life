@@ -9,29 +9,86 @@ public class Game_of_Life {
 
     public static void main(String[] args) {
         
-         int cords = 5;
-         char[][] laukas = new char[cords][cords];
-         // Sugeneruojamas pirmas laukas
-         for(int x=0; x<laukas.length; x++) {
-             for(int y=0; y<laukas.length; y++){
-                 if(Math.random() < 0.22) {
-                     laukas[x][y] = 'X';
-                 } else {
-                     laukas[x][y] = '.';
-                 }
-             }
-         }
-         // Spausdina pirma sugeneruota lauka
-         for(int x=0; x<laukas.length; x++) {
-             for(int y=0; y<laukas.length; y++) {
-                 System.out.print(laukas[x][y]);
-             }
-             System.out.println();
-         }
-         
-         for(int kiek=0; kiek<50; kiek++) {
-             
-         }
+        int dydis = 10;
+        char[][] laukas = new char[dydis][dydis];
+        
+            // Random sugeneruotas laukas
+            for(int y = 0; y<laukas.length; y++) {
+                for(int x = 0; x<laukas.length; x++) {
+                    if(Math.random() < 0.50) {
+                        laukas[y][x] = 'X';
+                    } else {
+                        laukas[y][x] = '.';
+                    }
+                }
+            }
+            
+            // Pirmas gautas laukas
+            for(int y = 0; y<laukas.length; y++) {
+                for(int x = 0; x<laukas.length; x++) {
+                    System.out.print(laukas[y][x]);
+                }
+                System.out.println();
+            }
+            
+            // Iteraciju kiekis ( Gyvenimo ciklai )
+            for(int LifeTime = 0; LifeTime<50; LifeTime++) {
+                char[][] iteracija = new char[dydis][dydis];
+                
+                // Ieskome aplikui esanciu kaimynu
+                for(int y = 0; y<laukas.length; y++) {
+                    for(int x = 0; x<laukas.length; x++) {
+                        int kaimynai = 0;
+                        
+                        if ( y != 0) {
+                            if( x != 0 && laukas[y - 1][x - 1] == 'X') {
+                                kaimynai++;
+                            }
+                            if( laukas[y - 1][x] == 'X') {
+                                kaimynai++;
+                            }
+                            if( x < dydis - 1 && laukas[y][x + 1] == 'X' ) {
+                                kaimynai++;
+                            }
+                        }
+                        if( x != 0 && laukas[y][x - 1] == 'X' ) {
+                            kaimynai++;
+                        }
+                        if( x < dydis - 1 && laukas[y][x + 1] == 'X') {
+                            kaimynai++;
+                        }
+                        if( y < dydis - 1) {
+                            if( x != 0 && laukas[y + 1][x - 1] == 'X') {
+                                kaimynai++;
+                            }
+                            if( laukas[y + 1][x] == 'X') {
+                               kaimynai++; 
+                            }
+                            if( x < dydis - 1 && laukas[y + 1][x + 1] == 'X') {
+                                kaimynai++;
+                            }
+                        } 
+                        // Gavome kaimynu kieki lauke
+                        
+                        // Salygos pasilikti arba dingti
+                        if(laukas[y][x] == 'X' && (kaimynai == 2 || kaimynai == 3)) {
+                           iteracija[y][x] = 'X';
+                        } else if(laukas[y][x] != 'X' && kaimynai == 3) {
+                            iteracija[y][x] = 'X';
+                        } else {
+                            iteracija[y][x] = '.';
+                        }
+                    }
+                }
+                System.out.println("__________");
+                for(int y = 0; y<iteracija.length; y++) {
+                    for(int x = 0; x<iteracija.length; x++) {
+                        System.out.print(iteracija[y][x]);
+                    }
+                    System.out.println();
+                }
+                laukas = iteracija;
+            }
         
     }
     
